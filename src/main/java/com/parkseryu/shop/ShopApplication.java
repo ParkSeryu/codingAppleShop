@@ -9,11 +9,16 @@ public class ShopApplication {
     public static void main(String[] args) {
         SpringApplication.run(ShopApplication.class, args);
 
-        final String lover = "parkseryu";
-        System.out.println("Hello, " + lover + "!");
-        int age = 18;
-        System.out.println("I'm " + age + " years old.");
+        var a = new Friend().age;
 
     }
+}
 
+class Friend {
+    String name = "kim";
+    int age = 20;
+
+    Friend() {
+        this.
+    }
 }
