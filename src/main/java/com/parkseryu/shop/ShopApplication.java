@@ -8,17 +8,6 @@ public class ShopApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ShopApplication.class, args);
-
-        var a = new Friend().age;
-
     }
 }
 
-class Friend {
-    String name = "kim";
-    int age = 20;
-
-    Friend() {
-        this.
-    }
-}
