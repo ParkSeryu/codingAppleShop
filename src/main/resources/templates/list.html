@@ -6,17 +6,26 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+
 </head>
 <body>
 <div>
     <img>
-    <h4 th:text="${name}">바지</h4>
-    <p>7억</p>
-</div>
-<div>
-    <img>
-    <h4>셔츠</h4>
-    <p>8억</p>
+    <div class="card" th:each="i : ${items}">
+        <img src="https://placehold.co/300">
+        <div>
+            <h4 th:text="${i.title}">바지</h4>
+            <p th:text="${i.price}">7억</p>
+        </div>
+    </div>
+    <div class="card" th:each="i : ${homeWorks}">
+        <img src="https://placehold.co/300">
+        <div>
+            <h4 th:text="${i.date}"></h4>
+            <p th:text="${i.title}"></p>
+        </div>
+    </div>
 </div>
 </body>
 </html>

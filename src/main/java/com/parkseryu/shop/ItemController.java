@@ -10,17 +10,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ItemController {
 
     private final ItemRepository itemRepository;
+    private final HomeWorkRepository homeWorkRepository;
 
-    public ItemController(ItemRepository itemRepository) {
+//    public ItemController(ItemRepository itemRepository) {
+//        this.itemRepository = itemRepository;
+//        this.homeWorkRepository = homeWorkRepository;
+//    }
+//
+//    public ItemController(HomeWorkRepository homeWorkRepository) {
+//        this.itemRepository = itemRepository;
+//        this.homeWorkRepository = homeWorkRepository;
+//    }
+
+    public ItemController(ItemRepository itemRepository, HomeWorkRepository homeWorkRepository) {
         this.itemRepository = itemRepository;
+        this.homeWorkRepository = homeWorkRepository;
     }
 
     @GetMapping("/list")
     String list(Model model) {
         var result = itemRepository.findAll();
-        System.out.println(result.get(0).price);
 
-        model.addAttribute("name", "비싼 바지");
+        model.addAttribute("items", result);
+
+        var result2 = homeWorkRepository.findAll();
+        model.addAttribute("homeWorks", result2);
+
         return "list.html";
     }
 }
