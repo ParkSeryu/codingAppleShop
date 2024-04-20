@@ -1,7 +1,6 @@
 package com.parkseryu.shop;
 
-import java.util.ArrayList;
-import lombok.RequiredArgsConstructor;
+import com.parkseryu.homework.test;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +10,6 @@ public class ItemController {
 
     private final ItemRepository itemRepository;
     private final HomeWorkRepository homeWorkRepository;
-
-//    public ItemController(ItemRepository itemRepository) {
-//        this.itemRepository = itemRepository;
-//        this.homeWorkRepository = homeWorkRepository;
-//    }
-//
-//    public ItemController(HomeWorkRepository homeWorkRepository) {
-//        this.itemRepository = itemRepository;
-//        this.homeWorkRepository = homeWorkRepository;
-//    }
 
     public ItemController(ItemRepository itemRepository, HomeWorkRepository homeWorkRepository) {
         this.itemRepository = itemRepository;
@@ -36,6 +25,11 @@ public class ItemController {
         var result2 = homeWorkRepository.findAll();
         model.addAttribute("homeWorks", result2);
 
-        return "list.html";
+        var homework = new test();
+        homework.addAge();
+        homework.changeAge(12);
+        homework.changeAge(-10);
+
+        return "list";
     }
 }
