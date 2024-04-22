@@ -51,8 +51,12 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) {
         Optional<Item> result = itemRepository.findById(id);
-        model.addAttribute("results", result.get());
-        return "detail";
+        if (result.isPresent()) {
+            model.addAttribute("result", result.get());
+            return "detail";
+        } else {
+            return "redirect:/list";
+        }
     }
 
 }
