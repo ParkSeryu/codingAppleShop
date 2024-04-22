@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,16 +44,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    String addPost(@RequestParam Map formData) {
-        Map<String, String> test = new HashMap<>();
-        test.put("title", (String) formData.get("title"));
-        test.put("price", (String) formData.get("price"));
-        System.out.println(test);
-
-        Item item = new Item();
-        item.setTitle(test.get("title"));
-        item.setPrice(Integer.valueOf(test.get("price")));
-
+    String addPost(@ModelAttribute Item item) {
         itemRepository.save(item);
 
         return "redirect:/list";
