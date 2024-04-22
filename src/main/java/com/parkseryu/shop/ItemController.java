@@ -1,14 +1,13 @@
 package com.parkseryu.shop;
 
 import com.parkseryu.homework.test;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ItemController {
@@ -40,7 +39,6 @@ public class ItemController {
     @GetMapping("/write")
     String write() {
         return "write";
-
     }
 
     @PostMapping("/add")
@@ -50,5 +48,11 @@ public class ItemController {
         return "redirect:/list";
     }
 
+    @GetMapping("/detail/{id}")
+    String detail(@PathVariable Long id, Model model) {
+        Optional<Item> result = itemRepository.findById(id);
+        model.addAttribute("results", result.get());
+        return "detail";
+    }
 
 }
