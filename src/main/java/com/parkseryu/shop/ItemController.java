@@ -2,8 +2,11 @@ package com.parkseryu.shop;
 
 import com.parkseryu.homework.test;
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,14 +52,15 @@ public class ItemController {
     }
 
     @GetMapping("/detail/{id}")
-    String detail(@PathVariable Long id, Model model) {
-        Optional<Item> result = itemRepository.findById(id);
-        if (result.isPresent()) {
-            model.addAttribute("result", result.get());
-            return "detail";
-        } else {
-            return "redirect:/list";
-        }
+    String detail(@PathVariable Long id, Model model) throws Exception {
+        throw new Exception();
+//        Optional<Item> result = itemRepository.findById(id);
+//        if (result.isPresent()) {
+//            model.addAttribute("result", result.get());
+//            return "detail";
+//        } else {
+//            return "redirect:/list";
+//        }
+//    }
     }
-
 }
