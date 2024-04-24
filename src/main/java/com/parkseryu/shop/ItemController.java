@@ -15,27 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ItemController {
 
-    private final ItemRepository itemRepository;
-    private final HomeWorkRepository homeWorkRepository;
+    private final ItemService itemService;
 
-    public ItemController(ItemRepository itemRepository, HomeWorkRepository homeWorkRepository) {
-        this.itemRepository = itemRepository;
-        this.homeWorkRepository = homeWorkRepository;
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
     }
 
     @GetMapping("/list")
     String list(Model model) {
-        var result = itemRepository.findAll();
-
+        var result = itemService.getItem();
         model.addAttribute("items", result);
-
-        var result2 = homeWorkRepository.findAll();
-        model.addAttribute("homeWorks", result2);
-
-        var homework = new test();
-        homework.addAge();
-        homework.changeAge(12);
-        homework.changeAge(-10);
         return "list";
     }
 
@@ -45,22 +34,20 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    String addPost(@ModelAttribute Item item) {
-        itemRepository.save(item);
+    String addPost(String title, Integer price) {
 
+        itemService.saveItem(title, price);
         return "redirect:/list";
     }
 
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) throws Exception {
-        throw new Exception();
-//        Optional<Item> result = itemRepository.findById(id);
-//        if (result.isPresent()) {
-//            model.addAttribute("result", result.get());
-//            return "detail";
-//        } else {
-//            return "redirect:/list";
-//        }
-//    }
+        Optional<Item> result = itemService.getItemById(id);
+        if (result.isPresent()) {
+            model.addAttribute("result", result.get());
+            return "detail";
+        } else {
+            return "redirect:/list";
+        }
     }
 }
