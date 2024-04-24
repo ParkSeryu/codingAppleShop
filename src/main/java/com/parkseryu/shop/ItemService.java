@@ -24,7 +24,21 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    public void edit(String title, Integer price, Long id) throws Exception {
+        if (title.length() > 100 || price < 0) {
+            throw new Exception();
+        }
+        Optional<Item> item = itemRepository.findById(id);
+        if (item.isPresent()) {
+            item.get().setTitle(title);
+            item.get().setPrice(price);
+            itemRepository.save(item.get());
+        }
+    }
+
     public Optional<Item> getItemById(Long id) {
         return itemRepository.findById(id);
     }
+
+
 }
