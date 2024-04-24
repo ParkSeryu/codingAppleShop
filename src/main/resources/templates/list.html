@@ -23,8 +23,19 @@
             </a>
             <p th:text="${i.price}"></p>
             <button th:onclick="|location.href='@{/edit/{id}(id=${i.id})}'|">수정</button>
+            <button th:onclick="fetch('/delete?id=[[${i.id}]]').then(r => r.text()).then(() => {location.reload();})">삭제
+            </button>
         </div>
     </div>
 </div>
+
+<button class="btn">버튼</button>
+
+<script>
+    document.querySelectorAll('.btn')[0].addEventListener('click', function () {
+        fetch('/test1?age=20')
+    });
+</script>
+
 </body>
 </html>

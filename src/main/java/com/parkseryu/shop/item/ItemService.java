@@ -1,4 +1,4 @@
-package com.parkseryu.shop;
+package com.parkseryu.shop.item;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +38,12 @@ public class ItemService {
 
     public Optional<Item> getItemById(Long id) {
         return itemRepository.findById(id);
+    }
+
+    public Item delete(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        itemRepository.deleteById(id);
+        return item;
     }
 
 

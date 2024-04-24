@@ -1,4 +1,4 @@
-package com.parkseryu.shop;
+package com.parkseryu.shop.homework;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

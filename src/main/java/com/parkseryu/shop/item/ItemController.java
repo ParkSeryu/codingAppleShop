@@ -1,16 +1,14 @@
-package com.parkseryu.shop;
+package com.parkseryu.shop.item;
 
-import com.parkseryu.homework.test;
+import java.util.Map;
 import java.util.Optional;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ItemController {
@@ -67,4 +65,21 @@ public class ItemController {
             return "redirect:/list";
         }
     }
+
+    @GetMapping("/delete")
+    String delete(@RequestParam Long id) throws Exception {
+        Item item = itemService.delete(id);
+        if (item == null) {
+            throw new Exception("삭제할 아이템이 없습니다.");
+        }
+        return "redirect:/list";
+
+    }
+
+    @GetMapping("/test1")
+    String test1(@RequestParam String age) {
+        System.out.println("요청 들어옴" + age);
+        return "redirect:/list";
+    }
+
 }
