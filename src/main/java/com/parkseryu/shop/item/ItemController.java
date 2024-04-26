@@ -2,6 +2,7 @@ package com.parkseryu.shop.item;
 
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +34,9 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    String addPost(String title, Integer price) {
-
-        itemService.saveItem(title, price);
+    String addPost(String title, Integer price, Authentication who) {
+        var whoName = who.getName();
+        itemService.saveItem(title, price, whoName);
         return "redirect:/list";
     }
 

@@ -17,10 +17,11 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public void saveItem(String title, Integer price) {
+    public void saveItem(String title, Integer price, String whoName) {
         Item item = new Item();
         item.setTitle(title);
         item.setPrice(price);
+        item.setWho(whoName);
         itemRepository.save(item);
     }
 

@@ -1,6 +1,9 @@
 package com.parkseryu.shop.member;
 
+import java.security.Principal;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +15,13 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/register")
-    String register() {
+    String register(Authentication auth) {
+        System.out.println(auth);
+        if (auth.isAuthenticated()) {
+            System.out.println("???");
+            return "redirect:/list";
+        }
+
         return "register";
     }
 
@@ -24,9 +33,21 @@ public class MemberController {
 
     @GetMapping("/login")
     String login() {
-        var result = memberRepository.findByUsername("kim");
-        System.out.println(result.get().toString());
         return "login";
+    }
+
+    @GetMapping("/my-page")
+    public String mypage(Authentication auth) {
+        System.out.println(auth);
+        System.out.println(auth.getName());
+        System.out.println(auth.isAuthenticated());
+        System.out.println(auth.getAuthorities().contains(
+                new SimpleGrantedAuthority("일반유저")
+        )); // 권한 확인
+
+        //if
+
+        return "mypage";
     }
 
 }

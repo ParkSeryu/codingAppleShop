@@ -1,5 +1,9 @@
-<div class="nav" th:fragment="navbar">
+<div class="nav" th:fragment="navbar" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></div>
     <a class="logo">SpringMall</a>
     <a href="/list">List</a>
     <a href="/write">Write</a>
+    <div sec:authorize="isAuthenticated()">
+        <a href="/logout">Logout</a>
+    </div>
 </div>
