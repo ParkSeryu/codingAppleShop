@@ -2,6 +2,7 @@ package com.parkseryu.shop.item;
 
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,6 +80,13 @@ public class ItemController {
     @GetMapping("/test1")
     String test1(@RequestParam String age) {
         System.out.println("요청 들어옴" + age);
+        return "redirect:/list";
+    }
+
+    @GetMapping("/test2")
+    String deleteItem() {
+        var result = new BCryptPasswordEncoder().encode("1234");
+        System.out.println(result);
         return "redirect:/list";
     }
 
