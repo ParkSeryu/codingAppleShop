@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @AllArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/register")
     String register() {
@@ -19,6 +20,13 @@ public class MemberController {
     String newMember(String username, String password, String displayName) {
         memberService.saveMember(username, password, displayName);
         return "redirect:/list";
+    }
+
+    @GetMapping("/login")
+    String login() {
+        var result = memberRepository.findByUsername("kim");
+        System.out.println(result.get().toString());
+        return "login";
     }
 
 }
