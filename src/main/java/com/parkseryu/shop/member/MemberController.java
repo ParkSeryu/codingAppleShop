@@ -38,6 +38,8 @@ public class MemberController {
 
     @GetMapping("/my-page")
     public String mypage(Authentication auth) {
+        var a = (CustomUser) auth.getPrincipal();
+        System.out.println(a.displayName);
         System.out.println(auth);
         System.out.println(auth.getName());
         System.out.println(auth.isAuthenticated());

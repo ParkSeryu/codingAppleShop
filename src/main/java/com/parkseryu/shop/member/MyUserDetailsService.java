@@ -1,6 +1,7 @@
 package com.parkseryu.shop.member;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +26,19 @@ public class MyUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("일반유저"));
 
-        return new User(result.getUsername(), result.getPassword(), authorities);
+        var a = new CustomUser(username, result.getPassword(), authorities);
+        a.displayName = result.getDisplayName();
 
+        return a;
+
+
+    }
+}
+
+class CustomUser extends User {
+    public String displayName;
+
+    public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
     }
 }
