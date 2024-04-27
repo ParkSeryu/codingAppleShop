@@ -7,10 +7,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @AllArgsConstructor
 public class MemberController {
+
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
@@ -52,4 +54,24 @@ public class MemberController {
         return "mypage";
     }
 
+    @GetMapping("/user/1")
+    @ResponseBody
+    public MemberDto getUser() {
+        var a = memberRepository.findById(1L);
+        var result = a.get();
+        var data = new MemberDto(result.getUsername(), result.getDisplayName());
+
+        return data;
+    }
+
+}
+
+class MemberDto {
+    public String username;
+    public String displayName;
+
+    public MemberDto(String username, String displayName) {
+        this.username = username;
+        this.displayName = displayName;
+    }
 }
