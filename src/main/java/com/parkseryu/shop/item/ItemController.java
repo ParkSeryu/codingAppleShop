@@ -2,6 +2,8 @@ package com.parkseryu.shop.item;
 
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ItemController {
 
     private final ItemService itemService;
+    private final ItemRepository itemRepository;
 
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, ItemRepository itemRepository) {
         this.itemService = itemService;
+        this.itemRepository = itemRepository;
     }
 
     @GetMapping("/list")
@@ -90,5 +94,13 @@ public class ItemController {
         System.out.println(result);
         return "redirect:/list";
     }
+
+    @GetMapping("/list/page/{abc}")
+    String getListPage(Model model, @PathVariable String abc) {
+        Page<Item> result = itemRepository.findPageBy(PageRequest.of(Integer.parseInt(abc), 5));
+        model.addAttribute("items", result);
+        return "list";
+    }
+
 
 }
