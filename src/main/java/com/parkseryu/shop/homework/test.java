@@ -1,4 +1,4 @@
-package com.parkseryu.homework;
+package com.parkseryu.shop.homework;
 
 import lombok.ToString;
 

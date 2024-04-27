@@ -1,5 +1,8 @@
 package com.parkseryu.shop.item;
 
+import com.parkseryu.shop.comment.Comment;
+import com.parkseryu.shop.comment.CommentRepository;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -19,10 +22,12 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ItemRepository itemRepository;
+    private final CommentRepository commentRepository;
 
-    public ItemController(ItemService itemService, ItemRepository itemRepository) {
+    public ItemController(ItemService itemService, ItemRepository itemRepository, CommentRepository commentRepository) {
         this.itemService = itemService;
         this.itemRepository = itemRepository;
+        this.commentRepository = commentRepository;
     }
 
     @GetMapping("/list")
@@ -55,6 +60,10 @@ public class ItemController {
         Optional<Item> result = itemService.getItemById(id);
         if (result.isPresent()) {
             model.addAttribute("result", result.get());
+
+            List<Comment> comments = commentRepository.findAllByParentId(id);
+            model.addAttribute("comments", comments);
+
             return "detail";
         } else {
             return "redirect:/list";

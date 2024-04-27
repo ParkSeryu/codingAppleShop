@@ -17,5 +17,20 @@
     <h4 th:text="${result.title}">금도금 바지</h4>
     <p th:text="${result.price} + '원'">7억</p>
 </div>
+<div class="comments">
+    <h4>Comments:</h4>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p th:text="${comment.username} + ': ' + ${comment.content}"></p>
+        </li>
+    </ul>
+</div>
+
+<form action="/comment" method="POST">
+    <input name="content">
+    <input name="parentId" th:value="${result.id}" type="hidden">
+    <button type="submit">전송</button>
+</form>
+
 </body>
 </html>
