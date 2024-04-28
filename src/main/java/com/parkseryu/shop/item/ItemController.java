@@ -111,5 +111,12 @@ public class ItemController {
         return "list";
     }
 
+    @PostMapping("/search")
+    String postSearch(@RequestParam String searchText) {
+        var result = itemRepository.findAllByTitleContains(searchText);
+        System.out.println(result);
+        return "list.html";
+    }
+
 
 }
