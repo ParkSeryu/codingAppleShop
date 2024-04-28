@@ -13,6 +13,11 @@
 
 <div th:replace="~{ nav.html::navbar }"></div>
 
+<form action="/search" method="POST">
+    <input name="searchText" style="display: inline">
+    <button>검색</button>
+</form>
+
 <div>
     <img>
     <div class="card" th:each="i : ${items}">
@@ -29,13 +34,13 @@
     </div>
 </div>
 
-<div>
-    <ul>
-        <li th:each="pageNum : ${#numbers.sequence(0, items.totalPages - 1)}">
-            <a th:href="@{/list/page/{pageNum}(pageNum=${pageNum})}" th:text="${pageNum + 1}"></a>
-        </li>
-    </ul>
-</div>
+<!--<div>-->
+<!--    <ul>-->
+<!--        <li th:each="pageNum : ${#numbers.sequence(0, items.totalPages - 1)}">-->
+<!--            <a th:href="@{/list/page/{pageNum}(pageNum=${pageNum})}" th:text="${pageNum + 1}"></a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
 <script>
     document.querySelectorAll('.btn')[0].addEventListener('click', function () {
         fetch('/test1?age=20')
