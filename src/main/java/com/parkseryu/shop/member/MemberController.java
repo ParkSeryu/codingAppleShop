@@ -19,7 +19,7 @@ public class MemberController {
     @GetMapping("/register")
     String register(Authentication auth) {
         System.out.println(auth);
-        if (auth.isAuthenticated()) {
+        if (auth != null && auth.isAuthenticated()) {
             System.out.println("???");
             return "redirect:/list";
         }

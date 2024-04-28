@@ -24,7 +24,7 @@ public class SecurityConfig {
                 authorize.requestMatchers("/**").permitAll()
         );
         http.formLogin((formLogin) ->
-                formLogin.loginPage("/login").defaultSuccessUrl("/index.html")
+                formLogin.loginPage("/login").defaultSuccessUrl("/list.html")
         );
         http.logout(logout -> logout.logoutUrl("/logout"));
         
