@@ -28,6 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
         var a = new CustomUser(username, result.getPassword(), authorities);
         a.displayName = result.getDisplayName();
+        a.id = result.getId();
 
         return a;
 

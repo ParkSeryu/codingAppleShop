@@ -32,5 +32,13 @@
     <button type="submit">전송</button>
 </form>
 
+<form action="/order" method="post">
+    <input name="title" th:value="${result.title}">
+    <input name="price" th:value="${result.price}">
+    <input name="count" placeholder="count">
+    <input name="memberId" th:value="${result.id}" type="hidden">
+    <button type="submit">주문하기</button>
+</form>
+
 </body>
 </html>
