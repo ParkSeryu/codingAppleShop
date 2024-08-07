@@ -5,7 +5,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.util.Date;
+import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,11 +19,16 @@ public class JwtUtil {
             ));
 
     // JWT 만들어주는 함수
-    public static String createToken() {
+    public static String createToken(Authentication auth) {
         //.claim(이름, 값) 으로 JWT에 데이터 추가 가능
+        var user = (CustomUser) auth.getPrincipal();
+        String collect = auth.getAuthorities().stream().map(a -> a.getAuthority())
+                .collect(Collectors.joining(","));
+
         String jwt = Jwts.builder()
-                .claim("username", "어쩌구")
-                .claim("displayName", "저쩌구")
+                .claim("username", user.getUsername())
+                .claim("displayName", user.displayName)
+                .claim("authorities", collect)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 10000)) //유효기간 10초
                 .signWith(key)

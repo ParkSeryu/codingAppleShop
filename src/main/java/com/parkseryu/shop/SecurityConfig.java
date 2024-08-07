@@ -14,14 +14,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    PasswordEncoder 함수() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf((csrf) -> csrf.disable());
-
+        http.csrf((csrf) -> csrf.disable());
         http.sessionManagement((session) -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
@@ -36,4 +35,6 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 }

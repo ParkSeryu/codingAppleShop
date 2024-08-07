@@ -1,5 +1,7 @@
 package com.parkseryu.shop.member;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -62,15 +64,31 @@ public class MemberController {
 
     @PostMapping("/login/jwt")
     @ResponseBody
-    public String loginJWT(@RequestBody Map<String, String> data) {
-
+    public String loginJWT(@RequestBody Map<String, String> data,
+                           HttpServletResponse response) {
         var authToken = new UsernamePasswordAuthenticationToken(
                 data.get("username"), data.get("password")
         );
         var auth = authenticationManagerBuilder.getObject().authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        return "";
+        String jwt = JwtUtil.createToken(SecurityContextHolder.getContext().getAuthentication());
+        System.out.println(jwt);
+
+        Cookie cookie = new Cookie("jwt", jwt);
+        cookie.setMaxAge(10);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return jwt;
+    }
+
+    @GetMapping("/my-page/jwt")
+    @ResponseBody
+    String mypageJWT() {
+
+        return "마이페이지데이터";
     }
 
 }
