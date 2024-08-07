@@ -1,6 +1,7 @@
 package com.parkseryu.shop.member;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.Map;
@@ -86,8 +87,13 @@ public class MemberController {
 
     @GetMapping("/my-page/jwt")
     @ResponseBody
-    String mypageJWT() {
+    String mypageJWT(Authentication auth) {
 
+        var user = (CustomUser) auth.getPrincipal();
+        System.out.println(user);
+        System.out.println(user.displayName);
+        System.out.println(user.getAuthorities());
+        
         return "마이페이지데이터";
     }
 
